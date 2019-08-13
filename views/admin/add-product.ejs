@@ -1,0 +1,57 @@
+<%- include('../_layouts/adminheader') %>
+
+ <h2 class='page-title mt-5'>Add a product</h2>
+ <a href='/admin/products' class='btn btn-primary'>Back to all products</a> <br><br>
+
+ <form method='post' action='/admin/products/add-product' enctype='multipart/form-data'>
+    <div class='form-group'>
+        <label for=''>Title</label>
+        <input type='text' name='title' class='form-control' placeholder='Title' value='<%= title %>'>
+    </div>
+     <div class='form-group'>
+        <label for=''>Description</label>
+        <textarea name='desc' cols='30' rows='10' class='form-control' placeholder='Description'><%= desc %></textarea>
+    </div> 
+    <div class='form-group'>
+        <label for=''>Category</label>
+        <select name='category' class='form-control'>
+            <% categories.forEach(cat => { %> 
+                <option value='<%= cat.slug %>'> <%= cat.title %> </option>
+            <% }) %>
+        </select>
+    </div>
+    <div class='form-group'>
+        <label for=''>Price</label>
+        <input type='text' name='price' class='form-control' placeholder='Price' value='<%= price %>'>
+    </div> 
+    <div class="form-group"> 
+        <label style='display:block;'>Image</label>
+        <input type='file' name='image' class='' id='img'> <br>
+        <small>Images besides jpg/jpeg/png will not be stored*</small> <br>
+        <img src='#' id='imgPreview' alt=''> 
+    </div>
+
+    <button class='btn btn-light'>Submit</button>
+</form>
+
+<script>
+    
+    function readURL(input) {
+        if(input.files && input.files[0]) {
+            const reader = new FileReader()
+
+            reader.onload = function(e) {
+                $('#imgPreview').attr('src', e.target.result).width(150).height(150).fadeIn();
+            }
+
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+
+    $('#img').change(function() {
+        readURL(this)
+    })
+
+</script>
+
+<%- include('../_layouts/adminfooter') %>

@@ -1,0 +1,19 @@
+.container {
+  margin-top: 15px;
+}
+
+img.pimage {
+  width: 150px;
+  height: 100%;
+  object-fit: contain;
+}
+
+a.pa {
+  display: inline-block;
+  height: 160px;
+}
+
+.row.products .p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

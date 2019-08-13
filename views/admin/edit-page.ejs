@@ -1,0 +1,23 @@
+<%- include('../_layouts/adminheader') %>
+
+ <h2 class='page-title mt-5'>Edit a page</h2>
+ <a href='/admin/pages' class='btn btn-primary'>Back to all pages</a> <br><br>
+
+ <form method='post' action='/admin/pages/edit-page/<%=id%>'>
+    <div class='form-group'>
+        <label for=''>Title</label>
+        <input type='text' name='title' class='form-control' placeholder='Title' value='<%= title %>'>
+    </div>
+    <div class='form-group'>
+        <label for=''>Slug</label>
+        <input type='text' name='slug' class='form-control' placeholder='Slug' value='<%= slug %>'>
+    </div>
+    <div class='form-group'>
+        <label for=''>Content</label>
+        <textarea name='content' cols='30' rows='10' id='ta' class='form-control' placeholder='Content'><%= content %></textarea>
+    </div> 
+
+    <button class='btn btn-light'>Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>

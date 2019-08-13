@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-20">
+        <a class="navbar-brand" href="/">CmsMyShoppingCart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">  
+                <% pages.forEach((page) => { %>
+                <% if (page.slug === 'home') { %>
+                    <li> <a class="nav-link" href='/'> <%= page.title %> </a> </li>
+                <% } else { %>
+                    <li> <a class="nav-link" href='<%= page.slug %>'> <%= page.title %> </a> </li>
+                <% } })%> 
+            </ul> 
+        </div>
+    </nav>
+
+    <div class="container">  
+        <%- messages('messages', locals) %> 
+
+        <div class='row mt-5'>
+            <div class='col-xs-12 col-md-3'>
+                <h3> Categories </h3>
+                <ul class='list-group'>
+                    <li class='list-group-item'><a href='/products'>All products</a></li>
+                    <% categories.forEach((cat) => { %>
+                        <li class='list-group-item'><a href='/products/<%= cat.slug %>'><%= cat.title %></a></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class='col-xs-12'> </div>
+            <div class='col-xs-12 col-md-8'>
+
+            
+
+
+   

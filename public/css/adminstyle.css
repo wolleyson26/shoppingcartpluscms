@@ -1,0 +1,41 @@
+.sorting tr:not(.home) {
+  cursor: pointer;
+}
+
+.ui-state-highlight {
+  border: 1px dashed #ccc;
+}
+
+#imgPreview {
+  margin: 30px;
+  object-fit: contain;
+  width: 150px;
+  height: 150px;
+}
+
+#noimage {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.gallery img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin: 5px;
+}
+
+ul.gallery {
+  padding: 0;
+}
+
+ul.gallery:first-child {
+  margin-left: 0;
+}
+
+ul.gallery li {
+  margin-left: 20px;
+  display: inline-block;
+  list-style-type: none;
+}

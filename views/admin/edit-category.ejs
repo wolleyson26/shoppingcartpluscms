@@ -1,0 +1,15 @@
+<%- include('../_layouts/adminheader') %>
+
+ <h2 class='page-title mt-5'>Edit a category</h2>
+ <a href='/admin/categories' class='btn btn-primary'>Back to all categories</a> <br><br>
+
+ <form method='post' action='/admin/categories/edit-category/<%=id%>'>
+    <div class='form-group'>
+        <label for=''>Title</label>
+        <input type='text' name='title' class='form-control' placeholder='Title' value='<%= title %>'>
+    </div>  
+
+    <button class='btn btn-light'>Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>
