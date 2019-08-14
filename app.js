@@ -73,9 +73,16 @@ app.set("view engine", "ejs");
 // set public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("*", (req, res, next) => {
+  res.locals.cart = req.session.cart;
+
+  next();
+});
+
 // Set routes
 const pages = require("./routes/pages");
 const products = require("./routes/products");
+const cart = require("./routes/cart");
 const adminPages = require("./routes/admin_pages");
 const adminCategories = require("./routes/admin_categories");
 const adminProducts = require("./routes/admin_products");
@@ -84,6 +91,7 @@ app.use("/admin/pages", adminPages);
 app.use("/admin/categories", adminCategories);
 app.use("/admin/products", adminProducts);
 app.use("/products", products);
+app.use("/cart", cart);
 app.use("/", pages);
 
 // start the server

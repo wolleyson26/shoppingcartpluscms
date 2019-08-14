@@ -4,7 +4,7 @@
     <% products.forEach((prod) => { %>  
         <div class='col-xs-12 col-md-4 p'>
             <a class='pa' href='/products/<%= prod.category %>/<%= prod.slug %>'>
-            <img  class='pimage' src='/products/image/<%= prod._id %>'>
+            <img  class='pimage' src='/products/product_files/images/<%= prod._id %>'>
             </a>  
             <h5 class='text-capitalize'><%= prod.title %></h5>  
             <h6>$<%= parseFloat(prod.price).toFixed(2) %></h6> 

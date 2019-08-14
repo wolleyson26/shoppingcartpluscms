@@ -29,7 +29,7 @@
                     <% if (product.image.data === undefined ) { %>
                         <img id="noimage" src="/images/noimage.png">
                     <% } else {%>
-                        <img id="noimage" src="/products/image/<%= product._id %>">
+                        <img id="noimage" src="/products/product_files/images/<%= product._id %>">
                     <% }%>
                 </td>
                 <td> <a href='/admin/products/edit-product/<%= product._id %>'>Edit </a> </td>   

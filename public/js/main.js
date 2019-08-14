@@ -8,10 +8,14 @@ $(() => {
       return false;
     }
   });
-});
 
-$(".alert")
-  .fadeTo(2000, 500)
-  .fadeOut(500, function() {
-    $(".alert").fadeOut(500);
-  });
+  if ($("[data-fancybox]").length) {
+    $("[data-fancybox]").fancybox();
+  }
+
+  $(".alert")
+    .fadeTo(2000, 500)
+    .fadeOut(500, function() {
+      $(".alert").fadeOut(500);
+    });
+});

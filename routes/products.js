@@ -22,32 +22,48 @@ router.get("/", (req, res) => {
 router.get("/:category", (req, res) => {
   const categorySlug = req.params.category;
 
-  Category.findOne({ slug: categorySlug }, async (err, cat) => {
-    Product.find({ category: categorySlug }, async (err, products) => {
-      if (err) console.log(err);
+  try {
+    Category.findOne({ slug: categorySlug }, (err, cat) => {
+      Product.find({ category: categorySlug }, async (err, products) => {
+        if (err) console.log(err);
 
-      res.render("cat_products", { title: cat.title, products });
+        res.render("cat_products", { title: cat.title, products });
+      });
     });
-  });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 /*
  * GET product details
  */
-router.get("/:category/:product", (req, res) => {
-  const galleryImages = null
+router.get("/:category/:product", async (req, res) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.product });
 
-  Product.findOne({ slug: req.params.product }, (err, product) => {
-    if (err) console.log(err);
+    if (!product) {
+      return res.status(400).json({ msg: "Product do not exist" });
+    }
 
-    const g
-  })
+    const { title, gallery } = product;
+
+    await res.render("product", {
+      title,
+      product,
+      gallery
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 /*
  * GET images
  */
-router.get("/image/:productId", async (req, res) => {
+router.get("/product_files/images/:productId", async (req, res) => {
   try {
     const product = await Product.findById(req.params.productId);
 
