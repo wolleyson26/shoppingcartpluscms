@@ -5,10 +5,13 @@ const { check, validationResult } = require("express-validator");
 // Get Page model
 const Page = require("../models/page");
 
+// Auth middleware
+const { isAdmin } = require("../config/auth");
+
 /*
  * GET pages index
  */
-router.get("/", (req, res) => {
+router.get("/", isAdmin, (req, res) => {
   Page.find({})
     .sort({ sorting: 1 })
     .exec((err, pages) => {
@@ -21,7 +24,7 @@ router.get("/", (req, res) => {
 /*
  * GET add page
  */
-router.get("/add-page", (req, res) => {
+router.get("/add-page", isAdmin, (req, res) => {
   const title = "";
   const slug = "";
   const content = "";
@@ -143,7 +146,7 @@ router.post("/reorder-pages", (req, res) => {
 /*
  * GET edit page
  */
-router.get("/edit-page/:id", (req, res) => {
+router.get("/edit-page/:id", isAdmin, (req, res) => {
   Page.findById(req.params.id, (err, page) => {
     if (err) console.log(err);
 
@@ -163,6 +166,7 @@ router.get("/edit-page/:id", (req, res) => {
  */
 router.post(
   "/edit-page/:id",
+
   [
     check("title", "Title must have a value")
       .not()
@@ -231,7 +235,7 @@ router.post(
 /*
  * GET delete page
  */
-router.get("/delete-page/:id", (req, res) => {
+router.get("/delete-page/:id", isAdmin, (req, res) => {
   Page.findByIdAndRemove(req.params.id, err => {
     if (err) console.log(err);
 

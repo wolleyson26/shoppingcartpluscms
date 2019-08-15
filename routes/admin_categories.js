@@ -5,10 +5,13 @@ const { check, validationResult } = require("express-validator");
 // Get Category model
 const Category = require("../models/category");
 
+// Auth middleware
+const { isAdmin } = require("../config/auth");
+
 /*
  * GET Category index
  */
-router.get("/", (req, res) => {
+router.get("/", isAdmin, (req, res) => {
   Category.find((err, categories) => {
     if (err) console.log(err);
 
@@ -21,7 +24,7 @@ router.get("/", (req, res) => {
 /*
  * GET add category page
  */
-router.get("/add-category", (req, res) => {
+router.get("/add-category", isAdmin, (req, res) => {
   const title = "";
 
   res.render("admin/add-category", {
@@ -84,7 +87,7 @@ router.post(
 /*
  * GET edit Category page
  */
-router.get("/edit-category/:id", (req, res) => {
+router.get("/edit-category/:id", isAdmin, (req, res) => {
   Category.findById(req.params.id, (err, category) => {
     if (err) console.log(err);
 
@@ -158,7 +161,7 @@ router.post(
 /*
  * GET delete category
  */
-router.get("/delete-category/:id", (req, res) => {
+router.get("/delete-category/:id", isAdmin, (req, res) => {
   Category.findByIdAndRemove(req.params.id, err => {
     if (err) console.log(err);
 

@@ -11,6 +11,9 @@ const Product = require("../models/product");
 // Category model
 const Category = require("../models/category");
 
+// Auth middleware
+const { isAdmin } = require("../config/auth");
+
 const multer = require("multer");
 const storage = multer.diskStorage({
   filename: function(req, file, cb) {
@@ -42,7 +45,7 @@ const upload = multer({
 /*
  * GET Product index
  */
-router.get("/", (req, res) => {
+router.get("/", isAdmin, (req, res) => {
   let count;
 
   Product.countDocuments((err, c) => {
@@ -60,7 +63,7 @@ router.get("/", (req, res) => {
 /*
  * GET add product
  */
-router.get("/add-product", (req, res) => {
+router.get("/add-product", isAdmin, (req, res) => {
   const title = "";
   const desc = "";
   const price = "";
@@ -153,7 +156,7 @@ router.post(
 /*
  * GET edit product
  */
-router.get("/edit-product/:id", async (req, res) => {
+router.get("/edit-product/:id", isAdmin, async (req, res) => {
   let errors = "";
 
   if (req.session.errors) errors = req.session.errors;
@@ -280,7 +283,7 @@ router.post("/product-gallery/:id", upload.array("file"), async (req, res) => {
 /*
  * GET delete product
  */
-router.get("/delete-product/:id", (req, res) => {
+router.get("/delete-product/:id", isAdmin, (req, res) => {
   const id = req.params.id;
 
   Product.findById(id, async (err, prod) => {
@@ -296,7 +299,7 @@ router.get("/delete-product/:id", (req, res) => {
 /*
  * GET delete image
  */
-router.get("/delete-image/:productId/:imageId", (req, res) => {
+router.get("/delete-image/:productId/:imageId", isAdmin, (req, res) => {
   Product.findById(req.params.productId, async (err, prod) => {
     if (err) return res.status(404).json({ msg: "product does not exist" });
 

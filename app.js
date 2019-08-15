@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const db = require("./config/db");
 const session = require("express-session");
 const fileUpload = require("express-fileupload");
+const passport = require("passport");
 
 // connect to db
 mongoose
@@ -73,9 +74,15 @@ app.set("view engine", "ejs");
 // set public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// Passport config
+require("./config/passport")(passport);
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("*", (req, res, next) => {
   res.locals.cart = req.session.cart;
-
+  res.locals.user = req.user || null;
   next();
 });
 
@@ -83,6 +90,7 @@ app.get("*", (req, res, next) => {
 const pages = require("./routes/pages");
 const products = require("./routes/products");
 const cart = require("./routes/cart");
+const users = require("./routes/users");
 const adminPages = require("./routes/admin_pages");
 const adminCategories = require("./routes/admin_categories");
 const adminProducts = require("./routes/admin_products");
@@ -92,6 +100,7 @@ app.use("/admin/categories", adminCategories);
 app.use("/admin/products", adminProducts);
 app.use("/products", products);
 app.use("/cart", cart);
+app.use("/users", users);
 app.use("/", pages);
 
 // start the server

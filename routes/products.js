@@ -41,6 +41,8 @@ router.get("/:category", (req, res) => {
  */
 router.get("/:category/:product", async (req, res) => {
   try {
+    const loggedIn = req.isAuthenticated() ? true : false;
+
     const product = await Product.findOne({ slug: req.params.product });
 
     if (!product) {
@@ -52,7 +54,8 @@ router.get("/:category/:product", async (req, res) => {
     await res.render("product", {
       title,
       product,
-      gallery
+      gallery,
+      loggedIn
     });
   } catch (err) {
     console.error(err.message);
